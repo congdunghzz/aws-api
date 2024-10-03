@@ -17,6 +17,7 @@ public class Image {
     @Id
     private String id;
     private String name;
+    private String key;
     private String url;
     private String ownedBy;
     private Long createDate;

@@ -16,9 +16,10 @@ app:
   security:
     jwtSecret: fCeDw+hIGGCwSVFo0Y883e3iko8s4huUSqDswc8mXk6xFyTnof0ihw==
     jwtExpiration: 86400000
+
 aws:
-  access_key: ""
-  secret_key: ""
-  region: ""
-  s3:
-    bucket: ""
+  access-key: ${AWS_ACCESS_KEY:test}
+  secret-key: ${AWS_SECRET_KEY:test}
+  region: ${AWS_REGION:us-east-1}
+  endpoint: ${AWS_ENDPOINT:http://localhost:4566}
+  bucket: ${AWS_S3_BUCKET:test-bucket}

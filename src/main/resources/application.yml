@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: aws
+  data:
+    mongodb:
+      database: aws
+      host: ${ENV_DB_HOST:localhost}
+      port: ${ENV_DB_PORT:27017}
+
+  servlet:
+    multipart:
+      max-file-size: 50MB
+      max-request-size: 50MB
+
+app:
+  security:
+    jwtSecret: fCeDw+hIGGCwSVFo0Y883e3iko8s4huUSqDswc8mXk6xFyTnof0ihw==
+    jwtExpiration: 86400000
+aws:
+  access_key: ""
+  secret_key: ""
+  region: ""
+  s3:
+    bucket: ""

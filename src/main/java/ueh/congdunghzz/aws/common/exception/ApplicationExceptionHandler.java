@@ -10,6 +10,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 import ueh.congdunghzz.aws.common.util.ResponseUtil;
 
 import java.util.List;
@@ -81,6 +82,15 @@ public class ApplicationExceptionHandler {
                 "Required request body is missing",
                 System.currentTimeMillis());
         return ResponseUtil.createResponse(HttpStatus.BAD_REQUEST, "Bad Request", errorResponse);
+    }
+    @ExceptionHandler(NoResourceFoundException.class)
+    public ResponseEntity<?> applicationExceptionHandler(NoResourceFoundException exception){
+        ErrorResponse errorResponse = new ErrorResponse(
+                400,
+                "Bad Request",
+                "Resource not found",
+                System.currentTimeMillis());
+        return ResponseUtil.createResponse(HttpStatus.BAD_REQUEST, errorResponse.getError(), errorResponse);
     }
 
 }

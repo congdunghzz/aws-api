@@ -21,5 +21,5 @@ public class Image {
     private String url;
     private String ownedBy;
     private Long createDate;
-    private ActiveStatus status;
+    private String contentType;
 }

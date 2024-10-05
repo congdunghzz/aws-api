@@ -56,5 +56,6 @@ public class AwsS3Service {
                 .bucket(awsProperties.getBucket())
                 .delete(Delete.builder().objects(objectIdentifier).build())
                 .build();
+        s3Client.deleteObjects(request);
     }
 }

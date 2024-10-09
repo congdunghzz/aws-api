@@ -13,6 +13,7 @@ import ueh.congdunghzz.aws.common.exception.ApplicationException;
 import ueh.congdunghzz.aws.common.util.UniqueID;
 import ueh.congdunghzz.aws.config.AwsConfig;
 import ueh.congdunghzz.aws.enitity.Image;
+import ueh.congdunghzz.aws.model.request.ImageRequest;
 import ueh.congdunghzz.aws.model.response.PageResponse;
 import ueh.congdunghzz.aws.repository.ImageRepository;
 import ueh.congdunghzz.aws.security.AuthUser;
@@ -33,7 +34,8 @@ public class ImageServiceImpl implements ImageService{
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Image uploadImage(AuthUser authUser, MultipartFile multipartFile) throws IOException {
+    public Image uploadImage(AuthUser authUser, ImageRequest request) throws IOException {
+        MultipartFile multipartFile = request.getFile();
         if (!EXECUTABLE_CONTENT_TYPE.contains(multipartFile.getContentType())){
             throw new ApplicationException(HttpStatus.BAD_REQUEST, multipartFile.getContentType() + " NOT support");
         }
@@ -43,6 +45,7 @@ public class ImageServiceImpl implements ImageService{
         Image image = Image.builder()
                 .createDate(System.currentTimeMillis())
                 .id(UniqueID.getUUID())
+                .title(request.getTitle())
                 .key(key)
                 .ownedBy(authUser.getId())
                 .name(fileName)

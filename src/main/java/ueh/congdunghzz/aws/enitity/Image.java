@@ -21,6 +21,7 @@ public class Image {
     private String key;
     private String url;
     private String ownedBy;
+    private String ownerName;
     private Long createDate;
     private String contentType;
 }

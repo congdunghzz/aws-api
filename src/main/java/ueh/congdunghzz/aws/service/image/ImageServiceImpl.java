@@ -48,6 +48,7 @@ public class ImageServiceImpl implements ImageService{
                 .title(request.getTitle())
                 .key(key)
                 .ownedBy(authUser.getId())
+                .ownerName(authUser.getName())
                 .name(fileName)
                 .url(awsProperties.getEndpoint()+"/"+awsProperties.getBucket()+"/"+ key)
                 .contentType(multipartFile.getContentType())

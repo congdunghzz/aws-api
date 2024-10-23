@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface ImageService {
     Image uploadImage(AuthUser authUser, ImageRequest request) throws IOException;
-    PageResponse getAllImages(int page, int size);
+    List<Image> getAllImages();
     Image getById(String id);
     Image getByKey(String key);
     void delete(String id);

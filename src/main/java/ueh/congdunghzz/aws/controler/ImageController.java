@@ -21,9 +21,8 @@ public class ImageController {
     private final ImageService imageService;
 
     @GetMapping
-    public ResponseEntity<?> getPage(@RequestParam(value = "page", defaultValue = "1") int page,
-                                     @RequestParam(value = "size", defaultValue = "10") int size){
-        return ResponseUtil.successResponse(imageService.getAllImages(page, size));
+    public ResponseEntity<?> getPage(){
+        return ResponseUtil.successResponse(imageService.getAllImages());
     }
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable String id) {

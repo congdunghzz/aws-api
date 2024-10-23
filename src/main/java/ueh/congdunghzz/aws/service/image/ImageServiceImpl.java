@@ -22,6 +22,7 @@ import ueh.congdunghzz.aws.service.S3Service.AwsS3Service;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -57,9 +58,8 @@ public class ImageServiceImpl implements ImageService{
     }
 
     @Override
-    public PageResponse getAllImages(int page, int size) {
-        Pageable pageable = PageRequest.of(page -1, size);
-        return new PageResponse(imageRepository.findAllByOrderByCreateDateDesc(pageable));
+    public List<Image> getAllImages() {
+        return imageRepository.findAllByOrderByCreateDateDesc();
     }
 
     @Override

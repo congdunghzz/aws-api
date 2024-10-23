@@ -1,11 +1,6 @@
 spring:
   application:
     name: aws
-  data:
-    mongodb:
-      database: aws
-      host: ${ENV_DB_HOST:localhost}
-      port: ${ENV_DB_PORT:27017}
 
   servlet:
     multipart:

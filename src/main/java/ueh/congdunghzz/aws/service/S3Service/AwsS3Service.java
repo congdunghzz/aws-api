@@ -45,6 +45,7 @@ public class AwsS3Service {
                 .contentType(contentType)
                 .bucket(awsProperties.getBucket())
                 .key(key)
+                .acl(ObjectCannedACL.PUBLIC_READ)
                 .build();
         BufferedInputStream bufferedInputStream = new BufferedInputStream(content);
         s3Client.putObject(request, RequestBody.fromInputStream(bufferedInputStream, bufferedInputStream.available()));

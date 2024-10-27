@@ -13,6 +13,7 @@ import ueh.congdunghzz.aws.common.exception.ApplicationException;
 import ueh.congdunghzz.aws.common.util.UniqueID;
 import ueh.congdunghzz.aws.config.AwsConfig;
 import ueh.congdunghzz.aws.enitity.Image;
+import ueh.congdunghzz.aws.model.request.ImageRequest;
 import ueh.congdunghzz.aws.model.response.PageResponse;
 import ueh.congdunghzz.aws.repository.ImageRepository;
 import ueh.congdunghzz.aws.security.AuthUser;
@@ -21,6 +22,7 @@ import ueh.congdunghzz.aws.service.S3Service.AwsS3Service;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.IOException;
+import java.util.List;
 import java.util.Set;
 
 @Service
@@ -33,7 +35,8 @@ public class ImageServiceImpl implements ImageService{
 
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Image uploadImage(AuthUser authUser, MultipartFile multipartFile) throws IOException {
+    public Image uploadImage(AuthUser authUser, ImageRequest request) throws IOException {
+        MultipartFile multipartFile = request.getFile();
         if (!EXECUTABLE_CONTENT_TYPE.contains(multipartFile.getContentType())){
             throw new ApplicationException(HttpStatus.BAD_REQUEST, multipartFile.getContentType() + " NOT support");
         }
@@ -43,19 +46,20 @@ public class ImageServiceImpl implements ImageService{
         Image image = Image.builder()
                 .createDate(System.currentTimeMillis())
                 .id(UniqueID.getUUID())
+                .title(request.getTitle())
                 .key(key)
                 .ownedBy(authUser.getId())
+                .ownerName(authUser.getName())
                 .name(fileName)
-                .url(awsProperties.getEndpoint()+"/"+awsProperties.getBucket()+"/"+ key)
+                .url(awsProperties.getEndpoint()+"/"+ key)
                 .contentType(multipartFile.getContentType())
                 .build();
         return imageRepository.insert(image);
     }
 
     @Override
-    public PageResponse getAllImages(int page, int size) {
-        Pageable pageable = PageRequest.of(page -1, size);
-        return new PageResponse(imageRepository.findAllByOrderByCreateDateDesc(pageable));
+    public List<Image> getAllImages() {
+        return imageRepository.findAllByOrderByCreateDateDesc();
     }
 
     @Override
@@ -94,6 +98,6 @@ public class ImageServiceImpl implements ImageService{
         outputStream.close();
     }
     private String generateKey(String userid, String id, String fileName){
-        return userid + "$" + id + "$" + fileName;
+        return userid + "/" + id + "/" + fileName;
     }
 }

@@ -36,8 +36,6 @@ public class AwsConfig {
         return S3Client.builder()
                 .region(Region.of(region))
                 .credentialsProvider(awsCredentialsProvider())
-                .endpointOverride(URI.create(endpoint))
-                .forcePathStyle(true)
                 .build();
     }
 }

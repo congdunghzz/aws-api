@@ -16,10 +16,12 @@ import ueh.congdunghzz.aws.common.enums.ActiveStatus;
 public class Image {
     @Id
     private String id;
+    private String title;
     private String name;
     private String key;
     private String url;
     private String ownedBy;
+    private String ownerName;
     private Long createDate;
     private String contentType;
 }

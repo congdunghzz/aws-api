@@ -1,11 +1,6 @@
 spring:
   application:
     name: aws
-  data:
-    mongodb:
-      database: aws
-      host: ${ENV_DB_HOST:localhost}
-      port: ${ENV_DB_PORT:27017}
 
   servlet:
     multipart:
@@ -18,8 +13,8 @@ app:
     jwtExpiration: 86400000
 
 aws:
-  access-key: ${AWS_ACCESS_KEY:test}
-  secret-key: ${AWS_SECRET_KEY:test}
-  region: ${AWS_REGION:us-east-1}
-  endpoint: ${AWS_ENDPOINT:http://localhost:4566}
-  bucket: ${AWS_S3_BUCKET:test-bucket}
+  access-key: ${AWS_ACCESS_KEY:}
+  secret-key: ${AWS_SECRET_KEY:}
+  region: ${AWS_REGION:ap-southeast-1}
+  endpoint: ${AWS_ENDPOINT:https://${aws.bucket}.s3.${aws.region}.amazonaws.com}
+  bucket: ${AWS_S3_BUCKET:moment-sharing}

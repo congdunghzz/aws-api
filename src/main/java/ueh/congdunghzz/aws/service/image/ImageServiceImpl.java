@@ -51,7 +51,7 @@ public class ImageServiceImpl implements ImageService{
                 .ownedBy(authUser.getId())
                 .ownerName(authUser.getName())
                 .name(fileName)
-                .url(awsProperties.getEndpoint()+"/"+awsProperties.getBucket()+"/"+ key)
+                .url(awsProperties.getEndpoint()+"/"+ key)
                 .contentType(multipartFile.getContentType())
                 .build();
         return imageRepository.insert(image);
@@ -98,6 +98,6 @@ public class ImageServiceImpl implements ImageService{
         outputStream.close();
     }
     private String generateKey(String userid, String id, String fileName){
-        return userid + "$" + id + "$" + fileName;
+        return userid + "/" + id + "/" + fileName;
     }
 }
